@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom'
 import { BarChart3, DollarSign, PieChart, Settings, CreditCard, Bell } from 'lucide-react'
 import { useFinanceStore } from './store/useFinanceStore'
 import { 
@@ -7,6 +7,7 @@ import {
   MonthlyTrendsLineChart, 
   CashFlowForecastChart as CashFlowChart 
 } from './components/Charts'
+import { TransactionManagement } from './components/TransactionManagement'
 
 // Utility function to format currency
 const formatCurrency = (amount: number) => {
@@ -31,6 +32,7 @@ const DemoBanner = () => (
 // Navigation Component
 const Navigation = () => {
   const unreadCount = useFinanceStore((state) => state.getUnreadNotificationCount())
+  const location = useLocation()
   
   return (
     <nav className="bg-white border-r border-gray-200 w-64 min-h-screen p-6">
@@ -40,15 +42,37 @@ const Navigation = () => {
       </div>
       
       <div className="space-y-2">
-        <NavItem icon={<BarChart3 className="w-5 h-5" />} label="Dashboard" active />
-        <NavItem icon={<CreditCard className="w-5 h-5" />} label="Transactions" />
-        <NavItem icon={<PieChart className="w-5 h-5" />} label="Budget" />
+        <NavItem 
+          icon={<BarChart3 className="w-5 h-5" />} 
+          label="Dashboard" 
+          active={location.pathname === '/'} 
+          href="/"
+        />
+        <NavItem 
+          icon={<CreditCard className="w-5 h-5" />} 
+          label="Transactions" 
+          active={location.pathname === '/transactions'}
+          href="/transactions"
+        />
+        <NavItem 
+          icon={<PieChart className="w-5 h-5" />} 
+          label="Budget" 
+          active={location.pathname === '/budget'}
+          href="/budget"
+        />
         <NavItem 
           icon={<Bell className="w-5 h-5" />} 
           label="Alerts" 
           badge={unreadCount > 0 ? unreadCount : undefined}
+          active={location.pathname === '/alerts'}
+          href="/alerts"
         />
-        <NavItem icon={<Settings className="w-5 h-5" />} label="Settings" />
+        <NavItem 
+          icon={<Settings className="w-5 h-5" />} 
+          label="Settings" 
+          active={location.pathname === '/settings'}
+          href="/settings"
+        />
       </div>
     </nav>
   )
@@ -58,15 +82,17 @@ const NavItem = ({
   icon, 
   label, 
   active = false, 
-  badge 
+  badge,
+  href 
 }: { 
   icon: React.ReactNode
   label: string
   active?: boolean
   badge?: number
+  href: string
 }) => (
-  <a 
-    href="#" 
+  <Link 
+    to={href}
     className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors relative ${
       active 
         ? 'bg-primary-50 text-primary-700 border border-primary-200' 
@@ -80,7 +106,7 @@ const NavItem = ({
         {badge}
       </span>
     )}
-  </a>
+  </Link>
 )
 
 // Dashboard Component
@@ -245,6 +271,7 @@ function App() {
           <Navigation />
           <Routes>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/transactions" element={<TransactionManagement />} />
           </Routes>
         </div>
       </div>
