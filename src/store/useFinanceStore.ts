@@ -1,17 +1,19 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import type { 
-  AppState, 
-  User, 
-  Account, 
-  Transaction, 
-  Budget, 
-  Notification, 
+import type {
+  AppState,
+  User,
+  Account,
+  Transaction,
+  Budget,
+  Notification,
   MonthlyInsight,
   CashFlowForecast,
-  TransactionCategory 
+  TransactionCategory
 } from '../types'
 import { initializeMockData, generateMonthlyInsights, generateCashFlowForecast } from '../data/mockData'
+import { purchaseAnalyzer } from '../services/purchaseAnalyzer'
+import type { PurchaseInsights } from '../services/purchaseAnalyzer'
 
 interface FinanceStore extends AppState {
   // Actions
@@ -38,6 +40,7 @@ interface FinanceStore extends AppState {
   getCategorySpending: () => { category: TransactionCategory; amount: number; count: number }[]
   getRecentTransactions: (limit?: number) => Transaction[]
   getUnreadNotificationCount: () => number
+  getPurchaseInsights: () => PurchaseInsights | null
   
   // Data loading
   loadTransactionsFromFile: (transactions: Transaction[]) => void
@@ -167,6 +170,12 @@ export const useFinanceStore = create<FinanceStore>()(
       getUnreadNotificationCount: () => {
         const { notifications } = get()
         return notifications.filter((n) => !n.isRead).length
+      },
+
+      getPurchaseInsights: () => {
+        const { transactions } = get()
+        if (transactions.length === 0) return null
+        return purchaseAnalyzer.analyzeAllPurchases(transactions)
       },
 
       // Data loading

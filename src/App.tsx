@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom'
-import { BarChart3, DollarSign, PieChart, Settings, CreditCard, Bell, LogOut, User } from 'lucide-react'
+import { BarChart3, DollarSign, PieChart, Settings, CreditCard, Bell, LogOut, User, Brain } from 'lucide-react'
 import { AuthProvider, useAuth } from './components/Auth/AuthContext'
 import AuthPage from './components/Auth/AuthPage'
 import FileUpload from './components/FileUpload'
+import PurchaseAnalysisDashboard from './components/PurchaseAnalysis'
 import { useFinanceStore } from './store/useFinanceStore'
 import {
   SpendingCategoriesPieChart,
@@ -56,6 +57,12 @@ const Navigation = () => {
           label="Transactions" 
           active={location.pathname === '/transactions'}
           href="/transactions"
+        />
+        <NavItem 
+          icon={<Brain className="w-5 h-5" />} 
+          label="AI Insights" 
+          active={location.pathname === '/insights'}
+          href="/insights"
         />
         <NavItem 
           icon={<PieChart className="w-5 h-5" />} 
@@ -303,6 +310,7 @@ const ProtectedApp = () => {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/transactions" element={<TransactionManagement />} />
+          <Route path="/insights" element={<PurchaseAnalysisDashboard />} />
         </Routes>
       </div>
     </div>
