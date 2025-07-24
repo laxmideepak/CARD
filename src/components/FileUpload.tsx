@@ -238,14 +238,32 @@ const FileUpload: React.FC<FileUploadProps> = ({ onDataLoaded }) => {
                                   row.Payee || row.payee || row.PAYEE ||
                                   row.Reference || row.reference || row.REFERENCE ||
                                   row.Details || row.details || row.DETAILS ||
-                                  row.Memo || row.memo || row.MEMO
+                                  row.Memo || row.memo || row.MEMO ||
+                                  row['Transaction Details'] || row['TRANSACTION DETAILS'] ||
+                                  row.Narrative || row.narrative || row.NARRATIVE ||
+                                  row.Commentary || row.commentary || row.COMMENTARY
 
-                const amountStr = row.Amount || row.amount || row.AMOUNT || 
+                let amountStr = row.Amount || row.amount || row.AMOUNT || 
                                 row.Debit || row.debit || row.DEBIT ||
                                 row.Credit || row.credit || row.CREDIT ||
                                 row.Value || row.value || row.VALUE ||
                                 row.Balance || row.balance || row.BALANCE ||
                                 row.TransactionAmount || row['Transaction Amount']
+
+                // Fallback: look for any column that might contain numeric amount data
+                if (!amountStr && amountStr !== 0) {
+                  const possibleAmountColumns = headers.filter(header => {
+                    const value = row[header]
+                    if (!value) return false
+                    // Check if it looks like a number (contains digits, decimal, currency symbols)
+                    const stringValue = value.toString().trim()
+                    return /^[-$€£¥₹(]?[\d,]+\.?\d*[)]?$/.test(stringValue) || 
+                           /^[\d,]+\.?\d*$/.test(stringValue)
+                  })
+                  if (possibleAmountColumns.length > 0) {
+                    amountStr = row[possibleAmountColumns[0]]
+                  }
+                }
 
                 if (!date || !description || (!amountStr && amountStr !== 0)) {
                   errors.push(`Row ${index + 1}: Missing fields (found: ${headers.join(', ')})`)
@@ -353,14 +371,32 @@ const FileUpload: React.FC<FileUploadProps> = ({ onDataLoaded }) => {
                                 row.Payee || row.payee || row.PAYEE ||
                                 row.Reference || row.reference || row.REFERENCE ||
                                 row.Details || row.details || row.DETAILS ||
-                                row.Memo || row.memo || row.MEMO
+                                row.Memo || row.memo || row.MEMO ||
+                                row['Transaction Details'] || row['TRANSACTION DETAILS'] ||
+                                row.Narrative || row.narrative || row.NARRATIVE ||
+                                row.Commentary || row.commentary || row.COMMENTARY
 
-              const amountStr = row.Amount || row.amount || row.AMOUNT || 
+              let amountStr = row.Amount || row.amount || row.AMOUNT || 
                               row.Debit || row.debit || row.DEBIT ||
                               row.Credit || row.credit || row.CREDIT ||
                               row.Value || row.value || row.VALUE ||
                               row.Balance || row.balance || row.BALANCE ||
                               row.TransactionAmount || row['Transaction Amount']
+
+              // Fallback: look for any column that might contain numeric amount data
+              if (!amountStr && amountStr !== 0) {
+                const possibleAmountColumns = headers.filter(header => {
+                  const value = row[header]
+                  if (!value) return false
+                  // Check if it looks like a number (contains digits, decimal, currency symbols)
+                  const stringValue = value.toString().trim()
+                  return /^[-$€£¥₹(]?[\d,]+\.?\d*[)]?$/.test(stringValue) || 
+                         /^[\d,]+\.?\d*$/.test(stringValue)
+                })
+                if (possibleAmountColumns.length > 0) {
+                  amountStr = row[possibleAmountColumns[0]]
+                }
+              }
 
               if (!date || !description || (!amountStr && amountStr !== 0)) {
                 errors.push(`Row ${index + 1}: Missing fields (found: ${headers.join(', ')})`)
