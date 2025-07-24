@@ -1,0 +1,233 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created": "2024-01-15T00:00:00Z",
+    "updated": "2024-01-15T00:00:00Z",
+    "project": "FinSense MVP",
+    "description": "AI-powered personal finance assistant portfolio project"
+  },
+  "tags": {
+    "master": {
+      "description": "Main development branch",
+      "created": "2024-01-15T00:00:00Z",
+      "tasks": {
+        "1": {
+          "id": "1",
+          "title": "Project Setup and Infrastructure",
+          "description": "Initialize React TypeScript project with essential tooling and folder structure",
+          "status": "pending",
+          "priority": "high",
+          "tags": ["setup", "infrastructure"],
+          "dependencies": [],
+          "estimatedHours": 4,
+          "details": "Set up React 18+ with TypeScript, configure ESLint/Prettier, set up Tailwind CSS, create component-based folder structure, and configure development environment with hot reloading and error boundaries.",
+          "testStrategy": "Verify build process, linting rules, and basic app rendering"
+        },
+        "2": {
+          "id": "2",
+          "title": "Design System and UI Foundation",
+          "description": "Create reusable UI components and establish design system",
+          "status": "pending",
+          "priority": "high",
+          "tags": ["design", "components", "ui"],
+          "dependencies": ["1"],
+          "estimatedHours": 6,
+          "details": "Implement color palette (deep blues, whites, greens), typography system with Inter font, create reusable components (Button, Card, Input, Modal), and establish spacing/layout utilities with Tailwind CSS.",
+          "testStrategy": "Component library with Storybook, visual regression testing for design consistency"
+        },
+        "3": {
+          "id": "3",
+          "title": "Navigation and Routing System",
+          "description": "Implement app navigation with React Router and responsive sidebar",
+          "status": "pending",
+          "priority": "high",
+          "tags": ["navigation", "routing", "layout"],
+          "dependencies": ["2"],
+          "estimatedHours": 4,
+          "details": "Set up React Router with protected routes, create responsive sidebar navigation, implement breadcrumbs, add mobile navigation menu, and establish layout components with proper accessibility.",
+          "testStrategy": "Navigation flow testing, responsive design testing across devices"
+        },
+        "4": {
+          "id": "4",
+          "title": "State Management Architecture",
+          "description": "Implement global state management with Zustand and data flow patterns",
+          "status": "pending",
+          "priority": "high",
+          "tags": ["state", "zustand", "architecture"],
+          "dependencies": ["1"],
+          "estimatedHours": 3,
+          "details": "Set up Zustand stores for user data, transactions, budgets, and UI state. Create TypeScript interfaces for all data structures, implement error handling patterns, and establish data persistence with localStorage.",
+          "testStrategy": "State management unit tests, data persistence verification"
+        },
+        "5": {
+          "id": "5",
+          "title": "Mock Data Services and API Layer",
+          "description": "Create realistic demo data and simulate API responses",
+          "status": "pending",
+          "priority": "high",
+          "tags": ["data", "api", "demo"],
+          "dependencies": ["4"],
+          "estimatedHours": 5,
+          "details": "Generate 6+ months of realistic transaction data, create multiple user personas, implement mock API services with loading states, add error simulation, and create data seeding utilities for consistent demo experience.",
+          "testStrategy": "Data integrity validation, API response consistency testing"
+        },
+        "6": {
+          "id": "6",
+          "title": "Dashboard Overview Cards",
+          "description": "Build financial overview cards showing key metrics",
+          "status": "pending",
+          "priority": "high",
+          "tags": ["dashboard", "cards", "metrics"],
+          "dependencies": ["2", "5"],
+          "estimatedHours": 4,
+          "details": "Create cards for total balance, monthly income, expenses, and savings rate. Implement loading states, add trend indicators with up/down arrows, include percentage changes, and add smooth animations for value updates.",
+          "testStrategy": "Metric calculation accuracy, responsive card layout testing"
+        },
+        "7": {
+          "id": "7",
+          "title": "Interactive Data Visualizations",
+          "description": "Implement charts for spending categories and trends using Chart.js",
+          "status": "pending",
+          "priority": "high",
+          "tags": ["charts", "visualization", "chartjs"],
+          "dependencies": ["5", "6"],
+          "estimatedHours": 6,
+          "details": "Create pie charts for spending categories, bar charts for monthly trends, implement interactive tooltips, add responsive design for mobile, configure color schemes matching design system, and add chart animations.",
+          "testStrategy": "Chart rendering performance, data accuracy verification, responsive behavior"
+        },
+        "8": {
+          "id": "8",
+          "title": "Transaction Management System",
+          "description": "Build comprehensive transaction list with filtering and search",
+          "status": "pending",
+          "priority": "high",
+          "tags": ["transactions", "filtering", "search"],
+          "dependencies": ["2", "5"],
+          "estimatedHours": 7,
+          "details": "Create transaction list with pagination, implement advanced filtering (date range, category, amount), add search functionality, create add/edit transaction modals, implement bulk operations, and add transaction categorization system.",
+          "testStrategy": "Filter and search functionality, CRUD operations testing, performance with large datasets"
+        },
+        "9": {
+          "id": "9",
+          "title": "Budget Tracking and Progress Indicators",
+          "description": "Implement real-time budget tracking with visual progress bars",
+          "status": "pending",
+          "priority": "medium",
+          "tags": ["budget", "tracking", "progress"],
+          "dependencies": ["5", "8"],
+          "estimatedHours": 5,
+          "details": "Create budget setup interface with category sliders, implement progress bars with overspend indicators, add budget vs actual comparisons, create monthly/yearly budget views, and implement automated budget recommendations.",
+          "testStrategy": "Budget calculation accuracy, progress indicator visual testing, overspend alert functionality"
+        },
+        "10": {
+          "id": "10",
+          "title": "30-Day Cash Flow Forecast",
+          "description": "Build AI-powered cash flow prediction with confidence intervals",
+          "status": "pending",
+          "priority": "medium",
+          "tags": ["forecast", "ai", "predictions"],
+          "dependencies": ["7", "8"],
+          "estimatedHours": 6,
+          "details": "Implement cash flow prediction algorithm using historical data, create forecast visualization with confidence bands, add interactive tooltips explaining predictions, implement seasonal adjustments, and add AI methodology explanations.",
+          "testStrategy": "Prediction accuracy testing, forecast visualization validation, tooltip functionality"
+        },
+        "11": {
+          "id": "11",
+          "title": "Account Linking Simulation",
+          "description": "Create mock Plaid integration and CSV upload interface",
+          "status": "pending",
+          "priority": "medium",
+          "tags": ["accounts", "plaid", "integration"],
+          "dependencies": ["2", "5"],
+          "estimatedHours": 4,
+          "details": "Build mock Plaid connection interface, create CSV/Apple Pay upload simulation, implement multiple account types (checking, savings, credit), add account balance aggregation, and create sync status indicators.",
+          "testStrategy": "Upload simulation functionality, account aggregation accuracy, UI flow testing"
+        },
+        "12": {
+          "id": "12",
+          "title": "Alerts and Notifications System",
+          "description": "Implement comprehensive notification system with insights",
+          "status": "pending",
+          "priority": "medium",
+          "tags": ["alerts", "notifications", "insights"],
+          "dependencies": ["9", "10"],
+          "estimatedHours": 5,
+          "details": "Create notification center with overspend alerts, unusual activity detection, budget milestone notifications, financial health tips, implement notification preferences, and add in-app notification system with dismissal options.",
+          "testStrategy": "Alert triggering accuracy, notification delivery testing, preference management validation"
+        },
+        "13": {
+          "id": "13",
+          "title": "Settings and Profile Management",
+          "description": "Build user settings page with demo mode toggle",
+          "status": "pending",
+          "priority": "medium",
+          "tags": ["settings", "profile", "demo"],
+          "dependencies": ["2", "4"],
+          "estimatedHours": 4,
+          "details": "Create user profile editing interface, implement financial preferences and goals setting, add demo mode toggle with clear indicators, create data export/import simulation, and implement notification preferences configuration.",
+          "testStrategy": "Profile update functionality, demo mode toggle behavior, preferences persistence"
+        },
+        "14": {
+          "id": "14",
+          "title": "Responsive Design and Mobile Optimization",
+          "description": "Ensure excellent mobile experience across all devices",
+          "status": "pending",
+          "priority": "high",
+          "tags": ["responsive", "mobile", "optimization"],
+          "dependencies": ["3", "6", "7", "8"],
+          "estimatedHours": 5,
+          "details": "Optimize layouts for mobile/tablet breakpoints, ensure touch-friendly interactions, implement swipe gestures for mobile navigation, optimize chart rendering for small screens, and test across various device sizes.",
+          "testStrategy": "Cross-device testing, touch interaction validation, layout consistency verification"
+        },
+        "15": {
+          "id": "15",
+          "title": "Onboarding Flow and User Guidance",
+          "description": "Create guided onboarding with tooltips and progressive disclosure",
+          "status": "pending",
+          "priority": "medium",
+          "tags": ["onboarding", "ux", "guidance"],
+          "dependencies": ["13", "11"],
+          "estimatedHours": 4,
+          "details": "Design welcome flow for new users, implement guided tooltips for key features, create progressive disclosure for complex features, add contextual help throughout the app, and implement onboarding completion tracking.",
+          "testStrategy": "Onboarding flow completion testing, tooltip positioning and content verification"
+        },
+        "16": {
+          "id": "16",
+          "title": "Animations and Micro-interactions",
+          "description": "Add smooth animations and delightful micro-interactions",
+          "status": "pending",
+          "priority": "low",
+          "tags": ["animations", "interactions", "polish"],
+          "dependencies": ["14"],
+          "estimatedHours": 4,
+          "details": "Implement smooth page transitions, add loading animations and skeleton screens, create hover and focus states, implement chart animation sequences, add success/error state animations, and ensure 60fps performance.",
+          "testStrategy": "Animation performance testing, interaction responsiveness validation, accessibility compliance"
+        },
+        "17": {
+          "id": "17",
+          "title": "Testing Suite Implementation",
+          "description": "Comprehensive testing with unit, integration, and E2E tests",
+          "status": "pending",
+          "priority": "medium",
+          "tags": ["testing", "quality", "e2e"],
+          "dependencies": ["8", "9", "10"],
+          "estimatedHours": 6,
+          "details": "Set up Jest for unit testing, implement React Testing Library for component tests, create Playwright/Cypress E2E tests for critical flows, add accessibility testing with axe-core, and implement performance testing.",
+          "testStrategy": "Achieve 80%+ code coverage, validate all critical user journeys, ensure accessibility compliance"
+        },
+        "18": {
+          "id": "18",
+          "title": "Documentation and Portfolio Preparation",
+          "description": "Create comprehensive documentation and README for portfolio showcase",
+          "status": "pending",
+          "priority": "medium",
+          "tags": ["documentation", "portfolio", "readme"],
+          "dependencies": ["16", "17"],
+          "estimatedHours": 3,
+          "details": "Write detailed README with technical decisions and design choices, create component documentation, add setup and deployment instructions, document demo data sources, create technical architecture diagrams, and prepare portfolio presentation materials.",
+          "testStrategy": "Documentation completeness review, setup instruction validation, portfolio presentation readiness"
+        }
+      }
+    }
+  }
+} 

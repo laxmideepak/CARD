@@ -1,0 +1,206 @@
+# FinSense MVP - Product Requirements Document
+
+## Project Overview
+FinSense is an AI-powered personal finance assistant MVP designed as a portfolio-ready web application to showcase product thinking, frontend skills, and design sensibility for recruiters and collaborators.
+
+## Core Features
+
+### 1. Dashboard & Overview
+- Responsive dashboard with financial overview cards showing:
+  - Total balance
+  - Monthly income
+  - Monthly expenses
+  - Savings rate percentage
+- Interactive pie charts for spending categories (Food, Housing, Transportation, Entertainment, Utilities, Shopping, Healthcare, Other)
+- Interactive bar charts for monthly spending trends
+- Quick insights and financial health summary
+
+### 2. 30-Day Cash Flow Forecast
+- AI-powered cash flow prediction graph with confidence intervals
+- Visual representation of expected income vs expenses
+- Trend analysis with seasonal adjustments
+- Confidence bands showing prediction accuracy
+- Interactive tooltips explaining AI predictions and methodology
+
+### 3. Transaction Management
+- Comprehensive transaction list with smart categorization
+- Advanced filtering capabilities (date range, category, amount, description)
+- Search functionality across transaction descriptions
+- Add/edit/delete transaction entries for demo purposes
+- Bulk categorization and import simulation
+- Transaction details modal with full information
+
+### 4. Budget Tracker & Alerts
+- Real-time budget tracking with visual progress indicators
+- Category-wise budget sliders for easy adjustment
+- Overspend alerts and notifications
+- Budget vs actual spending comparisons
+- Monthly and yearly budget views
+- Automated budget recommendations based on spending patterns
+
+### 5. Account Linking Simulation
+- Mock Plaid integration interface
+- CSV/Apple Pay upload simulation for demo data
+- Multiple account types (Checking, Savings, Credit Cards, Investment)
+- Account balance aggregation and synchronization status
+- Demo data population with realistic transaction patterns
+
+### 6. Alerts & Notifications Center
+- Overspending alerts with actionable insights
+- Unusual activity detection and explanations
+- Budget milestone notifications
+- Financial health tips and recommendations
+- Notification preferences and management
+- In-app notification system with dismissal options
+
+### 7. Settings & Profile Management
+- Editable user profile information
+- Financial preferences and goals setting
+- Demo mode toggle with clear indicators
+- Data export/import options (simulated)
+- Privacy and security settings (mock)
+- Notification preferences configuration
+
+## Design & UX Requirements
+
+### Visual Design
+- Clean, modern fintech UI with professional color palette:
+  - Primary: Deep blues (#1E3A8A, #3B82F6)
+  - Secondary: Whites and light grays (#F8FAFC, #E2E8F0)
+  - Accent: Green for positive values (#10B981)
+  - Alert: Red for warnings/overspend (#EF4444)
+- Mobile-responsive design with breakpoints for tablet and desktop
+- Accessible color palette meeting WCAG AA standards
+- Professional typography using Inter or system fonts
+- Proper spacing and visual hierarchy throughout
+
+### User Experience
+- Smooth animations and transitions for all interactions
+- Loading states and skeleton screens for data fetching
+- Guided onboarding flow with tooltips and progressive disclosure
+- Intuitive navigation with clear information architecture
+- Contextual help and explanations for AI features
+- Error states with helpful messaging and recovery options
+
+### Portfolio-Specific Features
+- Prominent "Demo Mode" banner on all pages
+- Tooltips explaining AI predictions and insights
+- Sample data clearly marked as fake/demo
+- Professional README explaining technical decisions and design choices
+- Code comments explaining complex logic and design patterns
+
+## Technical Requirements
+
+### Frontend Stack
+- React 18+ with TypeScript for type safety
+- State management using Zustand or Redux Toolkit
+- React Router for navigation
+- Chart.js or Recharts for data visualizations
+- Tailwind CSS for styling and responsive design
+- React Hook Form for form management
+- Date-fns for date manipulation
+
+### Code Quality & Structure
+- Component-based folder structure with clear separation of concerns
+- Custom hooks for reusable logic
+- TypeScript interfaces for all data structures
+- ESLint and Prettier for code formatting
+- Comprehensive prop types and error boundaries
+- Modular CSS with consistent naming conventions
+
+### Data & State Management
+- Mock data services simulating real API responses
+- Local storage for user preferences and demo settings
+- Realistic sample data for all financial categories
+- State management for user interactions and UI state
+- Error handling for all user actions and data operations
+
+### Testing & Quality Assurance
+- Unit tests for utility functions and data processing
+- Component testing for critical user flows
+- E2E testing with Playwright or Cypress for key scenarios
+- Accessibility testing with automated tools
+- Performance optimization for chart rendering and data processing
+
+## Sample Data Requirements
+
+### User Profiles
+- Multiple demo user personas with different financial situations
+- Realistic spending patterns and transaction histories
+- Varied account types and balances
+- Different budget scenarios and financial goals
+
+### Transaction Data
+- 6+ months of realistic transaction history
+- Diverse spending categories with seasonal variations
+- Mix of recurring and one-time transactions
+- Various payment methods and merchant types
+- Realistic amounts and descriptions
+
+### Financial Insights
+- Budget recommendations based on spending patterns
+- Seasonal spending adjustments and predictions
+- Financial health scores with explanations
+- Personalized tips and recommendations
+
+## Success Metrics
+
+### Portfolio Impact
+- Demonstrates modern React/TypeScript proficiency
+- Showcases data visualization and UX design skills
+- Exhibits product thinking and user-centered design
+- Shows attention to code quality and maintainability
+- Highlights ability to create production-ready applications
+
+### Technical Excellence
+- Clean, readable, well-documented codebase
+- Proper error handling and edge case coverage
+- Responsive design across all device sizes
+- Fast loading times and smooth interactions
+- Comprehensive testing coverage
+
+### User Experience
+- Intuitive navigation and information discovery
+- Clear value proposition and feature demonstration
+- Professional visual design and branding
+- Helpful onboarding and feature explanations
+- Engaging and interactive data visualizations
+
+## Implementation Priority
+
+### Phase 1 (MVP Core)
+1. Project setup and basic routing
+2. Dashboard with overview cards and basic charts
+3. Transaction list with filtering and search
+4. Basic budget tracker with progress indicators
+5. Settings page with demo mode toggle
+
+### Phase 2 (Enhanced Features)
+1. 30-day cash flow forecast with AI simulation
+2. Advanced charts and data visualizations
+3. Account linking simulation interface
+4. Alerts and notifications system
+5. Enhanced onboarding flow
+
+### Phase 3 (Polish & Portfolio Ready)
+1. Advanced animations and micro-interactions
+2. Comprehensive testing suite
+3. Performance optimization
+4. Accessibility enhancements
+5. Documentation and README completion
+
+## Deployment & Documentation
+
+### Repository Structure
+- Clear folder organization with README explanations
+- Component documentation with usage examples
+- Technical decision documentation
+- Setup and deployment instructions
+- Demo data explanations and sources
+
+### Live Demo
+- Deployed version with demo data pre-loaded
+- Mobile-responsive demonstration
+- Clear indicators of demo/portfolio nature
+- Contact information and portfolio links
+- Performance metrics and technical highlights 
