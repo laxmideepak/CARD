@@ -11,7 +11,7 @@ import type {
   CashFlowForecast,
   TransactionCategory 
 } from '../types'
-import { initializeMockData } from '../data/mockData'
+import { initializeMockData, generateMonthlyInsights, generateCashFlowForecast } from '../data/mockData'
 
 interface FinanceStore extends AppState {
   // Actions
@@ -40,6 +40,7 @@ interface FinanceStore extends AppState {
   getUnreadNotificationCount: () => number
   
   // Data loading
+  loadTransactionsFromFile: (transactions: Transaction[]) => void
   loadDemoData: () => void
   refreshData: () => Promise<void>
 }
@@ -56,8 +57,8 @@ export const useFinanceStore = create<FinanceStore>()(
       insights: [],
       cashFlowForecast: [],
       isLoading: false,
-      error: null,
-      demoMode: true,
+        error: null,
+  demoMode: false,
 
       // Actions
       setUser: (user) => set({ user }),
@@ -169,6 +170,43 @@ export const useFinanceStore = create<FinanceStore>()(
       },
 
       // Data loading
+      loadTransactionsFromFile: (transactions: Transaction[]) => {
+        set({ isLoading: true })
+        try {
+          // Generate insights and forecasts based on uploaded transactions
+          const insights = generateMonthlyInsights(transactions)
+          const cashFlowForecast = generateCashFlowForecast()
+          
+          // Create a basic user account for uploaded data
+          const uploadedAccount: Account = {
+            id: 'uploaded-account',
+            name: 'Uploaded Account',
+            type: 'checking',
+            balance: transactions.reduce((sum, t) => sum + (t.type === 'income' ? t.amount : -t.amount), 0),
+            currency: 'USD',
+            lastSynced: new Date().toISOString(),
+            bankName: 'Uploaded Data',
+            accountNumber: 'XXXX-0000',
+            isDemo: false
+          }
+
+          set({
+            transactions,
+            accounts: [uploadedAccount],
+            insights,
+            cashFlowForecast,
+            isLoading: false,
+            error: null,
+            demoMode: false
+          })
+        } catch (error) {
+          set({
+            isLoading: false,
+            error: 'Failed to process uploaded data'
+          })
+        }
+      },
+
       loadDemoData: () => {
         set({ isLoading: true })
         
