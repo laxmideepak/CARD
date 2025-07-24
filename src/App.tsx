@@ -2,6 +2,11 @@ import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { BarChart3, DollarSign, PieChart, Settings, CreditCard, Bell } from 'lucide-react'
 import { useFinanceStore } from './store/useFinanceStore'
+import { 
+  SpendingCategoriesPieChart, 
+  MonthlyTrendsLineChart, 
+  CashFlowForecastChart as CashFlowChart 
+} from './components/Charts'
 
 // Utility function to format currency
 const formatCurrency = (amount: number) => {
@@ -157,12 +162,22 @@ const Dashboard = () => {
       
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <SpendingCategoriesChart />
-        <MonthlyTrendsChart />
+        <div className="card">
+          <h3 className="text-lg font-semibold mb-4">Spending Categories</h3>
+          <SpendingCategoriesPieChart />
+        </div>
+        
+        <div className="card">
+          <h3 className="text-lg font-semibold mb-4">Monthly Trends</h3>
+          <MonthlyTrendsLineChart />
+        </div>
       </div>
       
       {/* Cash Flow Forecast */}
-      <CashFlowForecastChart />
+      <div className="card mt-6">
+        <h3 className="text-lg font-semibold mb-4">14-Day AI Cash Flow Forecast</h3>
+        <CashFlowChart />
+      </div>
     </div>
   )
 }
@@ -197,150 +212,7 @@ const DashboardSkeleton = () => (
   </div>
 )
 
-// Spending Categories Chart Component
-const SpendingCategoriesChart = () => {
-  const getCategorySpending = useFinanceStore((state) => state.getCategorySpending())
-  const categoryData = getCategorySpending.slice(0, 6) // Top 6 categories
 
-  const categoryColors = {
-    food: '#10B981',
-    housing: '#3B82F6',
-    transportation: '#F59E0B',
-    entertainment: '#EF4444',
-    utilities: '#8B5CF6',
-    shopping: '#06B6D4',
-    healthcare: '#EC4899',
-    income: '#059669',
-    other: '#6B7280'
-  }
-
-  return (
-    <div className="card">
-      <h3 className="text-lg font-semibold mb-4">Spending Categories</h3>
-      {categoryData.length > 0 ? (
-        <div className="space-y-3">
-          {categoryData.map(({ category, amount, count }) => (
-            <div key={category} className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div 
-                  className="w-4 h-4 rounded-full"
-                  style={{ backgroundColor: categoryColors[category] || '#6B7280' }}
-                />
-                <span className="font-medium capitalize">{category}</span>
-                <span className="text-sm text-gray-500">({count} transactions)</span>
-              </div>
-              <span className="font-semibold">{formatCurrency(amount)}</span>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="h-64 bg-gray-100 rounded-lg flex items-center justify-center">
-          <p className="text-gray-500">No spending data available</p>
-        </div>
-      )}
-    </div>
-  )
-}
-
-// Monthly Trends Chart Component  
-const MonthlyTrendsChart = () => {
-  const insights = useFinanceStore((state) => state.insights)
-  const recentInsights = insights.slice(0, 6).reverse() // Last 6 months, chronological order
-
-  return (
-    <div className="card">
-      <h3 className="text-lg font-semibold mb-4">Monthly Trends</h3>
-      {recentInsights.length > 0 ? (
-        <div className="space-y-4">
-          {recentInsights.map((insight) => {
-            const month = new Date(insight.month + '-01').toLocaleDateString('en-US', { 
-              month: 'short', 
-              year: 'numeric' 
-            })
-            return (
-              <div key={insight.month} className="flex items-center justify-between">
-                <span className="font-medium">{month}</span>
-                <div className="flex gap-4 text-sm">
-                  <span className="text-success-600">
-                    Income: {formatCurrency(insight.totalIncome)}
-                  </span>
-                  <span className="text-gray-600">
-                    Expenses: {formatCurrency(insight.totalExpenses)}
-                  </span>
-                  <span className={`font-semibold ${
-                    insight.netSavings >= 0 ? 'text-success-600' : 'text-danger-600'
-                  }`}>
-                    Net: {formatCurrency(insight.netSavings)}
-                  </span>
-                </div>
-              </div>
-            )
-          })}
-        </div>
-      ) : (
-        <div className="h-64 bg-gray-100 rounded-lg flex items-center justify-center">
-          <p className="text-gray-500">Loading trends data...</p>
-        </div>
-      )}
-    </div>
-  )
-}
-
-// Cash Flow Forecast Chart Component
-const CashFlowForecastChart = () => {
-  const cashFlowForecast = useFinanceStore((state) => state.cashFlowForecast)
-  const forecast = cashFlowForecast.slice(0, 7) // Next 7 days
-
-  return (
-    <div className="card mt-6">
-      <h3 className="text-lg font-semibold mb-4">7-Day Cash Flow Forecast</h3>
-      {forecast.length > 0 ? (
-        <div className="space-y-3">
-          {forecast.map((day) => {
-            const date = new Date(day.date).toLocaleDateString('en-US', { 
-              weekday: 'short', 
-              month: 'short', 
-              day: 'numeric' 
-            })
-            const netFlow = day.projectedIncome - day.projectedExpenses
-            return (
-              <div key={day.date} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-b-0">
-                <div className="flex items-center gap-4">
-                  <span className="font-medium w-20">{date}</span>
-                  <span className="text-sm text-gray-500">
-                    Confidence: {(day.confidence * 100).toFixed(0)}%
-                  </span>
-                </div>
-                <div className="flex items-center gap-4 text-sm">
-                  {day.projectedIncome > 0 && (
-                    <span className="text-success-600">
-                      +{formatCurrency(day.projectedIncome)}
-                    </span>
-                  )}
-                  <span className="text-danger-600">
-                    -{formatCurrency(day.projectedExpenses)}
-                  </span>
-                  <span className={`font-semibold ${
-                    netFlow >= 0 ? 'text-success-600' : 'text-danger-600'
-                  }`}>
-                    {netFlow >= 0 ? '+' : ''}{formatCurrency(netFlow)}
-                  </span>
-                  <span className="text-gray-600 w-24 text-right">
-                    Balance: {formatCurrency(day.cumulativeBalance)}
-                  </span>
-                </div>
-              </div>
-            )
-          })}
-        </div>
-      ) : (
-        <div className="h-64 bg-gray-100 rounded-lg flex items-center justify-center">
-          <p className="text-gray-500">AI Forecast Loading...</p>
-        </div>
-      )}
-    </div>
-  )
-}
 
 const OverviewCard = ({ 
   title, 
